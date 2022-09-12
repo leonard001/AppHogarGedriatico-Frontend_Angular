@@ -1,38 +1,113 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+
+<mat-horizontal-stepper class="stepperBox" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="medicalInfo">
+      <form autocomplete="off" class="form form--stepper mt35" [formGroup]="medicalInfo" >
+        <ng-template matStepLabel>Datos del Medicamento</ng-template>
+        <mat-grid-list class="form__list" cols="2" rowHeight="60">
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Nombre Medicamento</mat-label>
+              <input matInput placeholder="Nombre medicamento" formControlName="nombre" required>
+              <mat-error *ngIf="
+              medicalInfo.get('nombre').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <!-- end form box  -->
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Laboratorio</mat-label>
+              <input matInput placeholder="laboratorio" formControlName="laboratorio" required>
+              <mat-error *ngIf="
+              medicalInfo.get('laboratorio').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Fecha Vencimiento</mat-label>
+              <input matInput placeholder="fecha vencimiento" formControlName="vencimiento"
+               required [matDatepicker]="picker" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+              <mat-error *ngIf="
+              medicalInfo.get('vencimiento').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Fecha de registro</mat-label>
+              <input matInput placeholder="fecha de registro" formControlName="registro"
+               required [matDatepicker]="picker2">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="
+              medicalInfo.get('registro').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <!-- form box  -->
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Dosis sugerida</mat-label>
+              <input type="text" matInput placeholder="dosis sugerida" formControlName="dosis" required>
+              <mat-error *ngIf="
+              medicalInfo.get('dosis').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div class="mt35 dF jcFE ">
+          <button mat-raised-button matStepperNext color="primary"
+           (click)="prepareResume(medicalInfo.value)">Continuar</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Terminar</ng-template>
+      <div class="resumeBox">
+        <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume ">
+          <p class="resumeBox__title">Información del medicamento</p>
+          <li>
+            <span class="bolder">Nombres medicamento: </span>
+            <span>{{guardInfo.nombre}} </span>
+          </li>
+          <li>
+            <span class="bolder">Nombre laboratorio: </span>
+            <span>{{guardInfo.laboratorio}}</span>
+          </li>
+          <li>
+            <span class="bolder">Fecha vencimiento: </span>
+            <span>{{guardInfo.vencimiento}}</span>
+          </li>
+          <li>
+            <span class="bolder">Fecha registro: </span>
+            <span>{{guardInfo.registro}}</span>
+          </li>
+          <li>
+            <span class="bolder">Dosis sugerida: </span>
+            <span>{{guardInfo.dosis}}</span>
+          </li>
+
+        </ul>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+
+
+      <div class="dF jcFE mt40">
+        <button mat-stroked-button matStepperPrevious class="mr10">Volver</button>
+        <button mat-raised-button color="warn" class="mr10" (click)="stepper.reset()">Reiniciar</button>
+        <button mat-raised-button type="button" color="primary" (click)="handleRegisterPatient(resumeRegister)">Terminar registro</button>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+    </mat-step>
+  </mat-horizontal-stepper>
+

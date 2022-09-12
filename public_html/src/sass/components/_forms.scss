@@ -33,6 +33,15 @@ form {
   &__box {
     width: 100%;
     position: relative;
+    .mat-form-field-underline{
+      border-bottom: 1px solid #a9a9a9!important;
+    }
+  }
+  &__search{
+    .mat-form-field-wrapper{
+      padding: 0;
+
+    }
   }
 
   &--login {
@@ -44,10 +53,19 @@ form {
 
     .form {
       &__title {
-        @include fontSize(20);
+        font-size:toRem(20);
         text-transform: uppercase;
         margin-bottom: 20px;
       }
+    }
+  }
+  &--stepper{
+    .form__list{
+      width: 100%;
+
+    }
+    .form__box{
+      padding: 10px;
     }
   }
 }
@@ -59,3 +77,4 @@ form {
   bottom: -15px;
   left: 0;
 }
+

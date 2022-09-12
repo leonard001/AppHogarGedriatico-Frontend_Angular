@@ -5,23 +5,32 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent implements OnInit {
-  folders:any[]=[]
+  menuOptions:any[]=[];
+  panelOpenState = false;
   constructor() { }
 
   ngOnInit() {
-    this.folders = [
+    this.menuOptions = [
       {
         name:'Inicio',
-        url:'home'
+        route:'home',
+        icon:'home'
       },
       {
-        name:'Servicios',
-        url:'services'
+        name:'usuarios',
+        route:'user-information',
+        icon:'people'
       },
       {
         name:'Medicamentos',
-        url:'medical'
+        route:'medical',
+        icon:'folder'
       },
+      // {
+      //   name:'Asignaciones y planes',
+      //   route:'asignaciones-planes',
+      //   icon:'card_travel'
+      // },
     ]
   }
 showInfo(link){

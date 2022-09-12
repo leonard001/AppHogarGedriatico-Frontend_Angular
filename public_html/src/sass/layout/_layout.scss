@@ -20,6 +20,16 @@
 	}
 
 }
+.img_cover{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img_contain{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .noEvents{
 	pointer-events: none;
 }
@@ -47,7 +57,7 @@
 }
 
 .dB {
-	display: block;
+	display: block!important;
 }
 
 .dIB {
@@ -138,6 +148,15 @@
 }
 .max210 {
 	max-width: 210px;
+}
+.max300 {
+	max-width: 300px;
+}
+.max400 {
+	max-width: 400px;
+}
+.max500 {
+	max-width: 500px;
 }
 
 .max700 {
@@ -269,19 +288,19 @@
 }
 
 .mtA {
-	margin-top: auto;
+	margin-top: auto!important;
 }
 
 .mlA {
-	margin-left: auto;
+	margin-left: auto!important;
 }
 
 .mrA {
-	margin-right: auto;
+	margin-right: auto!important;
 }
 
 .mbA {
-	margin-bottom: auto;
+	margin-bottom: auto!important;
 }
 
 @include mq(mob) {

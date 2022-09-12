@@ -10,6 +10,7 @@ router.get('/abuesoft/rol', (req, res) => {
             res.json(rows);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -21,6 +22,7 @@ router.get('/abuesoft/rol/:id', (req, res) => {
             res.json(rows[0]);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -32,9 +34,10 @@ router.post('/abuesoft/rol', (req, res) => {
     `;
     mysqlConnection.query(query, [id, nombre, descripcion], (err, rows, fields) => {
         if(!err){
-            res.json({status: 'Rol saved'});
+            res.json({status: true});
         } else {
             console.log(err);
+            res.json({status: false});
         }
     });
 });
@@ -45,9 +48,10 @@ router.put('/abuesoft/rol/:id', (req, res) => {
     const query = `CALL abuesoft.AddEditRol(?, ?, ?)`;
     mysqlConnection.query(query, [id, nombre, descripcion], (err, rows, fields) => {
         if(!err){
-            res.json({status: 'Rol updated'});
+            res.json({status: true});
         } else {
             console.log(err);
+            res.json({status: false});
         }
     });
 });
@@ -56,9 +60,10 @@ router.delete('/abuesoft/rol/:id', (req, res) => {
     const { id } = req.params;
     mysqlConnection.query('DELETE FROM abuesoft.rol WHERE idrol = ?', [id], (err, rows, fields) => {
         if(!err){
-            res.json({status: "Rol deleted"});
+            res.json({status: true});
         } else {
             console.log(err);
+            res.json({status: false});
         }
     });
 });
